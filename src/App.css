@@ -1,38 +1,183 @@
+.app-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.center-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .App {
-  text-align: center;
+  background-color: #F9F9F9;
+  padding: 40px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.error {
+  color: #DB2955;
+  font-weight: bold;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.user-api-form .user-id, .user-api-form .api-key {
+  width: 300px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.user-api-form .submit-wrapper {
+  margin-top: 16px;
+}
+
+.user-api-form .label-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.user-api-form .label {
+  width: 80px;
+}
+
+.show-more-toggle {
+  display: flex;
+  justify-content: space-between;
+}
+
+td {
+  height: 100%;
+  padding: 0;
+}
+
+th {
+  text-align: left;
+}
+
+.dailys table, .habits table, .todos table {
+  width: 100%;
+}
+
+.dailys table td, .habits table td, .todos table td {
+  min-width: 25px;
+}
+
+.date {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.heading {
+  color: #70757a;
+  font-weight: bold;
+  font-size: medium;
+}
+
+.link {
+  color: #3366BB;
+}
+
+.link:hover {
+  cursor: pointer;
+}
+
+.habit-score {
+  display: flex;
+  flex-direction: column;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.habit-up, .habit-down {
+  padding: 3px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.daily-success, .habit-up {
+  background-color: #24CC8F;
+}
+
+.daily-fail, .habit-down {
+  background-color: #DB2955;
+}
+
+.daily-none, .habit-none {
+  background-color: #FFDFAE;
+}
+
+.daily-none .symbol, .habit-none .symbol {
+  color: #FFBE5D;
+}
+
+.todos ul {
+  padding: 0;
+}
+
+.todo-header-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  font-weight: bold;
+}
+
+.todo-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.todo-color {
+  width: 30px;
+  margin-bottom: 2px;
+}
+
+.todo-content {
+  flex-grow: 1;
+  padding: 2px;
+}
+
+.todo-notes {
+  color: #70757a;
+  font-size: small;
+}
+
+.todo-date {
+  color: #70757a;
+}
+
+.todo-text {
+  width: 75%;
+}
+
+.symbol {
+  color: white;
+}
+
+/* Task Colors */
+.task-color {
+  width: 100%;
+  height: 100%;
+}
+
+.worst {
+  background-color: #de3f3f;
+}
+
+.worse {
+  background-color: #ff6165;
+}
+
+.bad {
+  background-color: #ff944c;
+}
+
+.neutral {
+  background-color: #ffbe5d;
+}
+
+.good {
+  background-color: #24cc8f;
+}
+
+.better {
+  background-color: #3bcad7;
+}
+
+.best {
+  background-color: #50b5e9;
 }
