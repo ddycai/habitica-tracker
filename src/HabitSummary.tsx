@@ -5,7 +5,8 @@ import log from "loglevel";
 import { Task } from "./HabiticaTypes";
 import { DATE_KEY_FORMAT } from "./App";
 import { AppContext } from "./UserSummary";
-import { getColorClass } from "./task-color";
+import { TaskIcon } from "./TaskIcon";
+import { FoldIcon, UnfoldIcon } from "@primer/octicons-react";
 
 export interface HabitSummaryProps {
   data: Task[];
@@ -17,21 +18,28 @@ export default function HabitSummary(props: HabitSummaryProps) {
 
   return (
     <section className="habits">
-      <h2>Habits</h2>
-      <div>
-        <input
-          type="checkbox"
-          onClick={() => setShowNoHistory(!showNoHistory)}
-        />
-        Show habits with no history
-      </div>
       <table>
         <tr>
-          {context.showTaskColors && <th>{/* Task color box */}</th>}
-          <th>{/* Task name */}</th>
+          <th>
+            <div className="section-header">
+              <h2>Habits</h2>
+              <div
+                role="button"
+                className="show-no-history clickable"
+                title="Show/Hide habits with no data"
+                onClick={() => setShowNoHistory(!showNoHistory)}
+              >
+                {showNoHistory ? (
+                  <FoldIcon aria-hidden="true" />
+                ) : (
+                  <UnfoldIcon aria-hidden="true" />
+                )}
+              </div>
+            </div>
+          </th>
           {context.dates.map((day) => (
             <th>
-              <div className="date heading">
+              <div className="date-heading">
                 <span>{day.format("MM")}</span>
                 <span>{day.format("DD")}</span>
               </div>
@@ -74,19 +82,15 @@ export function Habit(props: { habit: Task; showNoHistory: boolean }) {
 
   return (
     <tr>
-      {context.showTaskColors && <td className={getColorClass(props.habit)}></td>}
-      <td>{text}</td>
+      <td className="task-name-row">
+        <TaskIcon task={props.habit} />
+        <span className="task-name">{text}</span>
+      </td>
       {dailyScores.map((score) => {
         if (score) {
           return <HabitScore up={score[0]} down={score[1]} />;
         } else {
-          return (
-            <td className="habit-none">
-              <div className="center-wrapper">
-                <span className="symbol">-</span>
-              </div>
-            </td>
-          );
+          return <td className="habit-cell">&nbsp;</td>;
         }
       })}
     </tr>
@@ -95,15 +99,15 @@ export function Habit(props: { habit: Task; showNoHistory: boolean }) {
 
 function HabitScore(props: { up: number; down: number }) {
   return (
-    <td>
-      <div className="habit-score">
+    <td className="habit-cell">
+      <div className="habit-score-container">
         {props.up > 0 && (
-          <div className="habit-up center-wrapper">
+          <div className="success center-wrapper">
             <span>+{props.up}</span>
           </div>
         )}
         {props.down > 0 && (
-          <div className="habit-down center-wrapper">
+          <div className="fail center-wrapper">
             <span>-{props.down}</span>
           </div>
         )}

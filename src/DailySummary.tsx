@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
 import moment from "moment";
 import log from "loglevel";
+import { UnfoldIcon, FoldIcon } from "@primer/octicons-react";
 
 import { DATE_KEY_FORMAT } from "./App";
 import { Task } from "./HabiticaTypes";
 import { AppContext } from "./UserSummary";
-import { getColorClass } from "./task-color";
+import { TaskIcon } from "./TaskIcon";
 
 export interface DailySummaryProps {
   data: Task[];
@@ -17,21 +18,28 @@ export default function DailySummary(props: DailySummaryProps) {
 
   return (
     <section className="dailys">
-      <h2>Dailies</h2>
-      <div>
-        <input
-          type="checkbox"
-          onClick={() => setShowNoHistory(!showNoHistory)}
-        />
-        Show dailies with no history
-      </div>
       <table>
         <tr>
-          {context.showTaskColors && <th>{/* Task color box */}</th>}
-          <th>{/* Task name */}</th>
+          <th>
+            <div className="section-header">
+              <h2>Dailies</h2>
+              <div
+                role="button"
+                className="show-no-history clickable"
+                title="Show/Hide dailies with no data"
+                onClick={() => setShowNoHistory(!showNoHistory)}
+              >
+                {showNoHistory ? (
+                  <FoldIcon aria-hidden="true" />
+                ) : (
+                  <UnfoldIcon aria-hidden="true" />
+                )}
+              </div>
+            </div>
+          </th>
           {context.dates.map((day) => (
             <th>
-              <div className="date heading">
+              <div className="date-heading">
                 <span>{day.format("MM")}</span>
                 <span>{day.format("DD")}</span>
               </div>
@@ -42,6 +50,10 @@ export default function DailySummary(props: DailySummaryProps) {
           <Daily showNoHistory={showNoHistory} daily={daily} />
         ))}
       </table>
+      <div
+        className="link show-no-history"
+        onClick={() => setShowNoHistory(!showNoHistory)}
+      ></div>
     </section>
   );
 }
@@ -98,8 +110,10 @@ export function Daily(props: { daily: Task; showNoHistory: boolean }) {
 
   return (
     <tr>
-      {context.showTaskColors && <td className={getColorClass(props.daily)}></td>}
-      <td>{text}</td>
+      <td className="task-name-row">
+        <TaskIcon task={props.daily} />
+        <span className="task-name">{text}</span>
+      </td>
       {dailyDeltas.map((delta) => (
         <DailyStatus delta={delta} />
       ))}
@@ -108,23 +122,25 @@ export function Daily(props: { daily: Task; showNoHistory: boolean }) {
 }
 
 function DailyStatus(props: { delta: number | undefined }) {
-  let className;
+  let classNames = ["daily-cell"];
   let symbol;
   if (!props.delta || props.delta === 0) {
-    className = "daily-none";
-    symbol = "-";
+    classNames.push("pass");
+    symbol = "\xa0";
   } else if (props.delta > 0) {
-    className = "daily-success";
+    classNames.push("success");
     symbol = "✓";
   } else {
-    className = "daily-fail";
+    classNames.push("fail");
     symbol = "✖";
   }
   return (
-    <td className={className}>
-      <div className="center-wrapper">
-        <span className="symbol">{symbol}</span>
-      </div>
+    <td className={classNames.join(" ")}>
+      {symbol && (
+        <div className="center-wrapper">
+          <span className="symbol">{symbol}</span>
+        </div>
+      )}
     </td>
   );
 }

@@ -1,0 +1,33 @@
+.task-icon-container {
+  width: 36px;
+  height: 22px;
+  padding: 4px;
+}
+
+.worst {
+  background-color: #de3f3f;
+}
+
+.worse {
+  background-color: #ff6165;
+}
+
+.bad {
+  background-color: #ff944c;
+}
+
+.neutral {
+  background-color: #ffbe5d;
+}
+
+.good {
+  background-color: #24cc8f;
+}
+
+.better {
+  background-color: #3bcad7;
+}
+
+.best {
+  background-color: #50b5e9;
+}

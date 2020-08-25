@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import IntervalTree from "node-interval-tree";
 import moment, { Moment } from "moment";
 
@@ -11,7 +11,8 @@ import TodoSummary from "./TodoSummary";
 export const DATE_KEY_FORMAT = "YYYYMMDD";
 
 const HABITICA_API_URL = "https://habitica.com/api/v3";
-const CLIENT_API_KEY = "0d9428fd-d6fa-45f3-a4db-f130e3ef10ea-HabiticaSummaryTool";
+const CLIENT_API_KEY =
+  "0d9428fd-d6fa-45f3-a4db-f130e3ef10ea-HabiticaSummaryTool";
 const USER_PATH = "/user";
 const TASKS_PATH = "/tasks/user";
 const TODOS_COMPLETED_PATH = "/tasks/user?type=completedTodos";
@@ -29,7 +30,7 @@ const DEFAULT_NUM_DAYS_TO_SHOW = 7;
 const CRON_BUFFER_DURATION_SECONDS = 60;
 
 export const AppContext = React.createContext({
-  showTaskColors: true,
+  showTaskIcons: true,
   dates: Array<Moment>(),
   cronIntervals: new IntervalTree(),
 });
@@ -51,7 +52,7 @@ export default function UserSummary(props: UserSummaryProps) {
   const [numDaysToShow, setNumDaysToShow] = useState<number>(
     DEFAULT_NUM_DAYS_TO_SHOW
   );
-  const [showTaskColors, setShowTaskColors] = useState<boolean>(true);
+  const [showTaskIcons, setShowTaskIcons] = useState<boolean>(true);
 
   // User data
   const [cronTimes, setCronTimes] = useState<Array<[number, number]>>([]);
@@ -134,7 +135,7 @@ export default function UserSummary(props: UserSummaryProps) {
         },
         (error) => {
           setError(error);
-        },
+        }
       );
   }, []); // DO NOT REMOVE the empty dependency array
 
@@ -152,12 +153,10 @@ export default function UserSummary(props: UserSummaryProps) {
     );
 
     const appContext = {
-      showTaskColors,
+      showTaskIcons: showTaskIcons,
       dates: getDateArray(numDaysToShow),
       cronIntervals,
     };
-
-    const toggleTaskColors = () => setShowTaskColors(!showTaskColors);
 
     return (
       <div className="App">
@@ -165,7 +164,7 @@ export default function UserSummary(props: UserSummaryProps) {
           <AppControls
             numDaysToShow={numDaysToShow}
             setNumDaysToShow={setNumDaysToShow}
-            toggleTaskColors={toggleTaskColors}
+            toggleTaskIcons={() => setShowTaskIcons(!showTaskIcons)}
           />
           <HabitSummary data={habits} />
           <DailySummary data={dailys} />
@@ -179,10 +178,10 @@ export default function UserSummary(props: UserSummaryProps) {
 function AppControls(props: {
   numDaysToShow: number;
   setNumDaysToShow: (n: number) => void;
-  toggleTaskColors: () => void;
+  toggleTaskIcons: () => void;
 }) {
+  const context = useContext(AppContext);
   const showMore = () => props.setNumDaysToShow(props.numDaysToShow + 7);
-
   const showLess = () => props.setNumDaysToShow(props.numDaysToShow - 7);
 
   return (
@@ -190,8 +189,13 @@ function AppControls(props: {
       <span role="button" className="link" onClick={showMore}>
         +1 week
       </span>
-      <span role="button" className="link" onClick={props.toggleTaskColors}>
-        Toggle Task Colors
+      <span
+        role="button"
+        className="link"
+        onClick={props.toggleTaskIcons}
+        title="Show/Hide task icons"
+      >
+        {context.showTaskIcons ? "Hide" : "Show"} Task Icons
       </span>
       {props.numDaysToShow > 7 ? (
         <span role="button" className="link" onClick={showLess}>

@@ -8,10 +8,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
 .App {
-  background-color: #F9F9F9;
+  background-color: #FFFFFF;
   padding: 40px;
 }
 
@@ -20,6 +21,7 @@
   font-weight: bold;
 }
 
+/* User API Form */
 .user-api-form .user-id, .user-api-form .api-key {
   width: 300px;
 }
@@ -37,9 +39,28 @@
   width: 80px;
 }
 
+/* Summary Section */
+section {
+  margin-top: 32px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+}
+
 .show-more-toggle {
   display: flex;
   justify-content: space-between;
+}
+
+.show-no-history  {
+  margin-left: 8px;
+}
+
+h2 {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 td {
@@ -55,129 +76,64 @@ th {
   width: 100%;
 }
 
-.dailys table td, .habits table td, .todos table td {
-  min-width: 25px;
-}
-
-.date {
+.date-heading {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.heading {
-  color: #70757a;
+  justify-content: flex-end;
   font-weight: bold;
   font-size: medium;
+  color: #757575;
 }
 
 .link {
   color: #3366BB;
 }
 
-.link:hover {
+.link:hover, .clickable:hover {
   cursor: pointer;
 }
 
-.habit-score {
+/* Task */
+.task-name-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.task-name {
+  padding: 8px;
+}
+
+.habit-cell, .daily-cell {
+  width: 40px;
+}
+
+.habit-score-container {
   display: flex;
   flex-direction: column;
   color: white;
+  justify-content: space-evenly;
+  height: 40px;
 }
 
-.habit-up, .habit-down {
-  padding: 3px;
-}
-
-.daily-success, .habit-up {
+/* Success/Fail Symbols */
+.success {
   background-color: #24CC8F;
 }
 
-.daily-fail, .habit-down {
+.fail {
   background-color: #DB2955;
 }
 
-.daily-none, .habit-none {
+.pass, .habit-cell {
   background-color: #FFDFAE;
 }
 
-.daily-none .symbol, .habit-none .symbol {
+.pass .symbol {
   color: #FFBE5D;
-}
-
-.todos ul {
-  padding: 0;
-}
-
-.todo-header-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  font-weight: bold;
-}
-
-.todo-row {
-  display: flex;
-  flex-direction: row;
-}
-
-.todo-color {
-  width: 30px;
-  margin-bottom: 2px;
-}
-
-.todo-content {
-  flex-grow: 1;
-  padding: 2px;
-}
-
-.todo-notes {
-  color: #70757a;
-  font-size: small;
-}
-
-.todo-date {
-  color: #70757a;
-}
-
-.todo-text {
-  width: 75%;
 }
 
 .symbol {
   color: white;
-}
-
-/* Task Colors */
-.task-color {
-  width: 100%;
-  height: 100%;
-}
-
-.worst {
-  background-color: #de3f3f;
-}
-
-.worse {
-  background-color: #ff6165;
-}
-
-.bad {
-  background-color: #ff944c;
-}
-
-.neutral {
-  background-color: #ffbe5d;
-}
-
-.good {
-  background-color: #24cc8f;
-}
-
-.better {
-  background-color: #3bcad7;
-}
-
-.best {
-  background-color: #50b5e9;
 }
