@@ -86,12 +86,15 @@ export function Daily(props: { daily: Task; showNoHistory: boolean }) {
           taskUpdateTime.unix()
         ).length > 0
       ) {
-        taskUpdateTime = taskUpdateTime.subtract(1, "day");
+        // Daily could have been completed twice in the cron time so if this is
+        // the second time, don't subtract a day.
+        if (!historyMap.has(taskUpdateTime.format(DATE_KEY_FORMAT))) {
+          taskUpdateTime = taskUpdateTime.subtract(1, "day");
+        } else {
+          log.debug(`Multiple daily completions on for ${text} on ${taskUpdateTime}`);
+        }
       }
-      const taskDate = taskUpdateTime.format(DATE_KEY_FORMAT);
-      if (historyMap.has(taskDate)) {
-        log.debug(`Found date conflict for task ${text} on ${taskDate}`);
-      }
+        const taskDate = taskUpdateTime.format(DATE_KEY_FORMAT);
       historyMap.set(taskDate, delta);
     }
   }

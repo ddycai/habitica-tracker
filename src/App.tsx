@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
+import log from "loglevel";
 
 import "./App.css";
 import UserSummary from "./UserSummary";
@@ -13,6 +14,7 @@ export enum AppState {
 }
 
 function App() {
+  log.setLevel('debug');
   const [userId, setUserId] = useState<string>("");
   const [userApiKey, setUserApiKey] = useState<string>("");
   const [error, setError] = useState<Error>();
