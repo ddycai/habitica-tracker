@@ -183,12 +183,24 @@ function AppControls(props: {
   const context = useContext(AppContext);
   const showMore = () => props.setNumDaysToShow(props.numDaysToShow + 7);
   const showLess = () => props.setNumDaysToShow(props.numDaysToShow - 7);
+  const monthString = getMonthString(context.dates);
 
   return (
-    <div className="show-more-toggle">
-      <span role="button" className="link" onClick={showMore}>
-        +1 week
-      </span>
+    <div className="app-controls">
+      <div>
+        <span role="button" className="link" onClick={showMore}>
+          +1 week
+        </span>
+        {props.numDaysToShow > 7 ? (
+          <span>
+            <span> / </span>
+            <span role="button" className="link" onClick={showLess}>
+              -1 week
+            </span>
+          </span>
+        ) : null}
+      </div>
+      <div className="date-header">{monthString}</div>
       <span
         role="button"
         className="link"
@@ -197,17 +209,23 @@ function AppControls(props: {
       >
         {context.showTaskIcons ? "Hide" : "Show"} Task Icons
       </span>
-      {props.numDaysToShow > 7 ? (
-        <span role="button" className="link" onClick={showLess}>
-          -1 week
-        </span>
-      ) : null}
     </div>
   );
 }
 
+function getMonthString(dates: Moment[]): string {
+  const monthStart = dates[0];
+  const monthEnd = dates[dates.length - 1];
+  if (monthStart.month() === monthEnd.month()) {
+    return monthEnd.format("MMMM YYYY");
+  }
+  let startFormat = monthStart.year() === monthEnd.year() ? "MMM" : "MMM YYYY";
+  let endFormat = "MMM YYYY";
+  return [monthStart.format(startFormat), monthEnd.format(endFormat)].join("–");
+}
+
 /** Get all the dates to show.  */
-function getDateArray(numDays: number) {
+function getDateArray(numDays: number): Moment[] {
   return Array(numDays)
     .fill(0)
     .map((_, i) => i + 1)

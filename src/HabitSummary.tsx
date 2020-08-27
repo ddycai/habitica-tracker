@@ -6,46 +6,23 @@ import { Task } from "./HabiticaTypes";
 import { DATE_KEY_FORMAT } from "./App";
 import { AppContext } from "./UserSummary";
 import { TaskIcon } from "./TaskIcon";
-import { FoldIcon, UnfoldIcon } from "@primer/octicons-react";
+import SummaryTableHeader from "./SummaryTableHeader";
 
 export interface HabitSummaryProps {
   data: Task[];
 }
 
 export default function HabitSummary(props: HabitSummaryProps) {
-  const context = useContext(AppContext);
   const [showNoHistory, setShowNoHistory] = useState(false);
 
   return (
     <section className="habits">
       <table>
-        <tr>
-          <th>
-            <div className="section-header">
-              <h2>Habits</h2>
-              <div
-                role="button"
-                className="show-no-history clickable"
-                title="Show/Hide habits with no data"
-                onClick={() => setShowNoHistory(!showNoHistory)}
-              >
-                {showNoHistory ? (
-                  <FoldIcon aria-hidden="true" />
-                ) : (
-                  <UnfoldIcon aria-hidden="true" />
-                )}
-              </div>
-            </div>
-          </th>
-          {context.dates.map((day) => (
-            <th>
-              <div className="date-heading">
-                <span>{day.format("MM")}</span>
-                <span>{day.format("DD")}</span>
-              </div>
-            </th>
-          ))}
-        </tr>
+        <SummaryTableHeader
+          title="Habits"
+          setShowNoHistory={setShowNoHistory}
+          showNoHistory={showNoHistory}
+        />
         {props.data.map((habit) => (
           <Habit showNoHistory={showNoHistory} habit={habit} />
         ))}

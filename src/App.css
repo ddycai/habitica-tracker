@@ -39,26 +39,36 @@
   width: 80px;
 }
 
+.app-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.app-controls .date-header {
+  display: flex;
+  flex-direction: column;
+  margin-left: 12px;
+  font-size: 1.3em;
+  color: #757575;
+}
+
 /* Summary Section */
 section {
   margin-top: 32px;
 }
 
-.section-header {
+.section-header, .section-header-title {
   display: flex;
   align-items: center;
-}
-
-.show-more-toggle {
-  display: flex;
-  justify-content: space-between;
 }
 
 .show-no-history  {
   margin-left: 8px;
 }
 
-h2 {
+section h2 {
   margin-top: 8px;
   margin-bottom: 8px;
 }
@@ -76,14 +86,17 @@ th {
   width: 100%;
 }
 
+.date {
+  color: #757575;
+}
+
 .date-heading {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  font-weight: bold;
+  font-weight: normal;
   font-size: medium;
-  color: #757575;
 }
 
 .link {

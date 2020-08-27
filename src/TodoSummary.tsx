@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import moment from "moment";
 
-import './TodoSummary.css';
+import "./TodoSummary.css";
 import { Task } from "./HabiticaTypes";
 import { AppContext } from "./UserSummary";
 import { TaskIcon } from "./TaskIcon";
@@ -32,13 +32,8 @@ function Todo(props: { todo: Task }) {
   return (
     <li className="todo-row">
       <TaskIcon task={props.todo} />
-      <span className="todo-date">{completionDate}</span>
-      <div className="todo-content">
-        <div className="todo-text">{props.todo.text}</div>
-        {props.todo!.notes && (
-          <div className="todo-notes">{props.todo!.notes}</div>
-        )}
-      </div>
+      <span className="todo-date date">{completionDate}</span>
+      <div className="todo-content">{props.todo.text}</div>
     </li>
   );
 }

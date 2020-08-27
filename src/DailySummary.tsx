@@ -1,51 +1,28 @@
 import React, { useContext, useState } from "react";
 import moment from "moment";
 import log from "loglevel";
-import { UnfoldIcon, FoldIcon } from "@primer/octicons-react";
 
 import { DATE_KEY_FORMAT } from "./App";
 import { Task } from "./HabiticaTypes";
 import { AppContext } from "./UserSummary";
 import { TaskIcon } from "./TaskIcon";
+import SummaryTableHeader from "./SummaryTableHeader";
 
 export interface DailySummaryProps {
   data: Task[];
 }
 
 export default function DailySummary(props: DailySummaryProps) {
-  const context = useContext(AppContext);
   const [showNoHistory, setShowNoHistory] = useState(false);
 
   return (
     <section className="dailys">
       <table>
-        <tr>
-          <th>
-            <div className="section-header">
-              <h2>Dailies</h2>
-              <div
-                role="button"
-                className="show-no-history clickable"
-                title="Show/Hide dailies with no data"
-                onClick={() => setShowNoHistory(!showNoHistory)}
-              >
-                {showNoHistory ? (
-                  <FoldIcon aria-hidden="true" />
-                ) : (
-                  <UnfoldIcon aria-hidden="true" />
-                )}
-              </div>
-            </div>
-          </th>
-          {context.dates.map((day) => (
-            <th>
-              <div className="date-heading">
-                <span>{day.format("MM")}</span>
-                <span>{day.format("DD")}</span>
-              </div>
-            </th>
-          ))}
-        </tr>
+        <SummaryTableHeader
+          title="Dailies"
+          setShowNoHistory={setShowNoHistory}
+          showNoHistory={showNoHistory}
+        />
         {props.data.map((daily) => (
           <Daily showNoHistory={showNoHistory} daily={daily} />
         ))}
@@ -91,10 +68,12 @@ export function Daily(props: { daily: Task; showNoHistory: boolean }) {
         if (!historyMap.has(taskUpdateTime.format(DATE_KEY_FORMAT))) {
           taskUpdateTime = taskUpdateTime.subtract(1, "day");
         } else {
-          log.debug(`Multiple daily completions on for ${text} on ${taskUpdateTime}`);
+          log.debug(
+            `Multiple daily completions on for ${text} on ${taskUpdateTime}`
+          );
         }
       }
-        const taskDate = taskUpdateTime.format(DATE_KEY_FORMAT);
+      const taskDate = taskUpdateTime.format(DATE_KEY_FORMAT);
       historyMap.set(taskDate, delta);
     }
   }
