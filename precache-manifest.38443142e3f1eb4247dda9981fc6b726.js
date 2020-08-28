@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "90c31d0423548d37771b6f61536944ba",
+    "revision": "4bf1f813395931aaf3d6361944bd4894",
     "url": "/habitica-summary/index.html"
   },
   {
-    "revision": "693d1b5be5e0b082ada2",
-    "url": "/habitica-summary/static/css/main.7e2bffe5.chunk.css"
+    "revision": "ac5ba6fa4d9c32bc0c9e",
+    "url": "/habitica-summary/static/css/main.87ba8fc8.chunk.css"
   },
   {
-    "revision": "98b9a66ea73338ec1edb",
-    "url": "/habitica-summary/static/js/2.d689b8a2.chunk.js"
+    "revision": "5b2f6e3258f890668ce4",
+    "url": "/habitica-summary/static/js/2.638065a2.chunk.js"
   },
   {
     "revision": "849657740f66d00720db130cc1e94c97",
-    "url": "/habitica-summary/static/js/2.d689b8a2.chunk.js.LICENSE.txt"
+    "url": "/habitica-summary/static/js/2.638065a2.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "693d1b5be5e0b082ada2",
-    "url": "/habitica-summary/static/js/main.c588f8cc.chunk.js"
+    "revision": "ac5ba6fa4d9c32bc0c9e",
+    "url": "/habitica-summary/static/js/main.98612450.chunk.js"
   },
   {
     "revision": "abf349c49ee3f420750b",
