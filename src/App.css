@@ -116,6 +116,7 @@ th {
 
 .task-name {
   padding: 8px;
+  max-width: 400px;
 }
 
 .task-name p {
