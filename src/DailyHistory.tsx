@@ -8,6 +8,8 @@ import { AppContext } from "./UserHistory";
 import { TaskIcon } from "./TaskIcon";
 import HistoryTableHeader from "./HistoryTableHeader";
 
+var md = require("habitica-markdown");
+
 export interface DailyHistoryProps {
   data: Task[];
 }
@@ -94,7 +96,10 @@ export function Daily(props: { daily: Task; showNoHistory: boolean }) {
     <tr>
       <td className="task-name-row">
         <TaskIcon task={props.daily} />
-        <span className="task-name">{text}</span>
+        <span
+          className="task-name"
+          dangerouslySetInnerHTML={{ __html: md.render(text) }}
+        />
       </td>
       {dailyDeltas.map((delta) => (
         <DailyStatus delta={delta} />

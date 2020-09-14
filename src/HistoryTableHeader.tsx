@@ -18,7 +18,7 @@ export default function HistoryTableHeader(props: {
             <div
               role="button"
               className="show-no-history clickable"
-              title="Show/Hide dailies with no data"
+              title="Show/Hide tasks with no data"
               onClick={() => props.setShowNoHistory(!props.showNoHistory)}
             >
               {props.showNoHistory ? (

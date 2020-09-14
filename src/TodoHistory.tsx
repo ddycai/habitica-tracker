@@ -6,6 +6,8 @@ import { Task } from "./HabiticaTypes";
 import { AppContext } from "./UserHistory";
 import { TaskIcon } from "./TaskIcon";
 
+var md = require("habitica-markdown");
+
 const TODO_FORMAT = "MMM D";
 
 export default function TodoHistory(props: { data: Task[] }) {
@@ -33,7 +35,10 @@ function Todo(props: { todo: Task }) {
     <li className="todo-row">
       <TaskIcon task={props.todo} />
       <span className="todo-date date">{completionDate}</span>
-      <div className="todo-content">{props.todo.text}</div>
+      <div
+        className="task-name"
+        dangerouslySetInnerHTML={{ __html: md.render(props.todo.text) }}
+      />
     </li>
   );
 }

@@ -118,6 +118,10 @@ th {
   padding: 8px;
 }
 
+.task-name p {
+  margin: 0;
+}
+
 .habit-cell, .daily-cell {
   width: 40px;
 }

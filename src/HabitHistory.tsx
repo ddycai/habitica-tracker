@@ -8,6 +8,8 @@ import { AppContext } from "./UserHistory";
 import { TaskIcon } from "./TaskIcon";
 import HistoryTableHeader from "./HistoryTableHeader";
 
+var md = require("habitica-markdown");
+
 export interface HabitHistoryProps {
   data: Task[];
 }
@@ -61,7 +63,10 @@ export function Habit(props: { habit: Task; showNoHistory: boolean }) {
     <tr>
       <td className="task-name-row">
         <TaskIcon task={props.habit} />
-        <span className="task-name">{text}</span>
+        <span
+          className="task-name"
+          dangerouslySetInnerHTML={{ __html: md.render(text) }}
+        />
       </td>
       {dailyScores.map((score) => {
         if (score) {

@@ -5,7 +5,7 @@
 .todo-row {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   padding: 1px;
 }
 
@@ -13,11 +13,6 @@
   width: 30px;
   margin-top: 1px;
   margin-bottom: 1px;
-}
-
-.todo-content {
-  flex-grow: 1;
-  padding: 5px;
 }
 
 .todo-notes {

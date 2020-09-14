@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 
+import ReactTooltip from "react-tooltip";
 import { ReactComponent as TrivialIcon } from "./svg/difficulty-trivial.svg";
 
 import "./TaskIcon.css";
@@ -17,15 +18,17 @@ export function TaskIcon(props: { task: Task }) {
   const stars = Array(getDifficultyLevel(props.task.priority)).fill(
     <TrivialIcon fill="white" aria-hidden />
   );
+  const taskValue = props.task.value.toFixed(1);
   return context.showTaskIcons ? (
-    <div className={classNames}>{stars}</div>
+    <React.Fragment>
+      <div data-tip data-for={props.task.id} className={classNames}>
+        {stars}
+      </div>
+      <ReactTooltip id={props.task.id} place="left" effect="solid">
+        Task value: {taskValue}
+      </ReactTooltip>
+    </React.Fragment>
   ) : null;
-
-  /*
-  return context.showTaskIcons ? (
-    <div className={classNames}>{icon}</div>
-  ) : null;
-  */
 }
 
 function getDifficultyLevel(priority: number) {
