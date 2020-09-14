@@ -4,7 +4,7 @@ import { ReactComponent as TrivialIcon } from "./svg/difficulty-trivial.svg";
 
 import "./TaskIcon.css";
 import { Task } from "./HabiticaTypes";
-import { AppContext } from "./UserSummary";
+import { AppContext } from "./UserHistory";
 
 export function TaskIcon(props: { task: Task }) {
   const context = useContext(AppContext);

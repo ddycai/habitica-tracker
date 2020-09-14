@@ -1,8 +1,8 @@
 {
-  "name": "habitica-summary",
+  "name": "habitica-history",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://ddycai.github.io/habitica-summary",
+  "homepage": "http://ddycai.github.io/habitica-history",
   "dependencies": {
     "@primer/octicons-react": "^10.1.0",
     "@testing-library/jest-dom": "^4.2.4",

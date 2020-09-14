@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent } from "react";
 import log from "loglevel";
 
 import "./App.css";
-import UserSummary from "./UserSummary";
+import UserHistory from "./UserHistory";
 
 export const DATE_KEY_FORMAT = "YYYYMMDD";
 
@@ -46,11 +46,11 @@ function App() {
   ) {
     return (
       <div className="App">
-        <h1>Habitica Summary Tool</h1>
+        <h1>Habitica History Tool</h1>
         {error && <div className="error">Error: {error.message}</div>}
         <p>
-          This tool displays a weekly summary of your Habits, Dailies and
-          Todos in Habitica.
+          This tool displays a history of your Habits, Dailies and Todos in
+          Habitica.
         </p>
         <p>
           Your User ID and API key can be found on the{" "}
@@ -102,7 +102,7 @@ function App() {
     );
   } else {
     return (
-      <UserSummary
+      <UserHistory
         userId={userId}
         userApiKey={userApiKey}
         setError={setAppError}

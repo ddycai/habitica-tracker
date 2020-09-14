@@ -4,21 +4,21 @@ import log from "loglevel";
 
 import { DATE_KEY_FORMAT } from "./App";
 import { Task } from "./HabiticaTypes";
-import { AppContext } from "./UserSummary";
+import { AppContext } from "./UserHistory";
 import { TaskIcon } from "./TaskIcon";
-import SummaryTableHeader from "./SummaryTableHeader";
+import HistoryTableHeader from "./HistoryTableHeader";
 
-export interface DailySummaryProps {
+export interface DailyHistoryProps {
   data: Task[];
 }
 
-export default function DailySummary(props: DailySummaryProps) {
+export default function DailyHistory(props: DailyHistoryProps) {
   const [showNoHistory, setShowNoHistory] = useState(false);
 
   return (
     <section className="dailys">
       <table>
-        <SummaryTableHeader
+        <HistoryTableHeader
           title="Dailies"
           setShowNoHistory={setShowNoHistory}
           showNoHistory={showNoHistory}

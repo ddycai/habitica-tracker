@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 import moment from "moment";
 
-import "./TodoSummary.css";
+import "./TodoHistory.css";
 import { Task } from "./HabiticaTypes";
-import { AppContext } from "./UserSummary";
+import { AppContext } from "./UserHistory";
 import { TaskIcon } from "./TaskIcon";
 
 const TODO_FORMAT = "MMM D";
 
-export default function TodoSummary(props: { data: Task[] }) {
+export default function TodoHistory(props: { data: Task[] }) {
   const context = useContext(AppContext);
   const startDate = context.dates[0];
   const todos = props.data.filter((todo) =>

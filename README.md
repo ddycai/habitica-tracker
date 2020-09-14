@@ -1,6 +1,6 @@
-# Habitica Summary Tool
+# Habitica History Tool
 
-Displays a weekly summary of your Habits, Dailies and Todos in Habitica.
+Displays a history of your Habits, Dailies and Todos in Habitica.
 
 Try it out locally:
 

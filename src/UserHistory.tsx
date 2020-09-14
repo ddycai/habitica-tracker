@@ -4,15 +4,15 @@ import moment, { Moment } from "moment";
 
 import { AppState } from "./App";
 import { Task, History } from "./HabiticaTypes";
-import DailySummary from "./DailySummary";
-import HabitSummary from "./HabitSummary";
-import TodoSummary from "./TodoSummary";
+import DailyHistory from "./DailyHistory";
+import HabitHistory from "./HabitHistory";
+import TodoHistory from "./TodoHistory";
 
 export const DATE_KEY_FORMAT = "YYYYMMDD";
 
 const HABITICA_API_URL = "https://habitica.com/api/v3";
-const CLIENT_API_KEY =
-  "0d9428fd-d6fa-45f3-a4db-f130e3ef10ea-HabiticaSummaryTool";
+const CLIENT_KEY =
+  "0d9428fd-d6fa-45f3-a4db-f130e3ef10ea-HabiticaHistoryTool";
 const USER_PATH = "/user";
 const TASKS_PATH = "/tasks/user";
 const TODOS_COMPLETED_PATH = "/tasks/user?type=completedTodos";
@@ -35,14 +35,14 @@ export const AppContext = React.createContext({
   cronIntervals: new IntervalTree(),
 });
 
-interface UserSummaryProps {
+interface UserHistoryProps {
   userId: string;
   userApiKey: string;
   setError: (errorMessage: Error) => void;
   setAppState: (state: AppState) => void;
 }
 
-export default function UserSummary(props: UserSummaryProps) {
+export default function UserHistory(props: UserHistoryProps) {
   // App states
   const [isLoadingUserData, setLoadingUserData] = useState(true);
   const [isLoadingTaskData, setLoadingTaskData] = useState(true);
@@ -68,7 +68,7 @@ export default function UserSummary(props: UserSummaryProps) {
         "Content-Type": "application/json",
         "x-api-user": userId,
         "x-api-key": userApiKey,
-        "x-client": CLIENT_API_KEY,
+        "x-client": CLIENT_KEY,
       },
     });
   };
@@ -166,9 +166,9 @@ export default function UserSummary(props: UserSummaryProps) {
             setNumDaysToShow={setNumDaysToShow}
             toggleTaskIcons={() => setShowTaskIcons(!showTaskIcons)}
           />
-          <HabitSummary data={habits} />
-          <DailySummary data={dailys} />
-          <TodoSummary data={todos} />
+          <HabitHistory data={habits} />
+          <DailyHistory data={dailys} />
+          <TodoHistory data={todos} />
         </AppContext.Provider>
       </div>
     );

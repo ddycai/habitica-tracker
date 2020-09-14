@@ -4,21 +4,21 @@ import log from "loglevel";
 
 import { Task } from "./HabiticaTypes";
 import { DATE_KEY_FORMAT } from "./App";
-import { AppContext } from "./UserSummary";
+import { AppContext } from "./UserHistory";
 import { TaskIcon } from "./TaskIcon";
-import SummaryTableHeader from "./SummaryTableHeader";
+import HistoryTableHeader from "./HistoryTableHeader";
 
-export interface HabitSummaryProps {
+export interface HabitHistoryProps {
   data: Task[];
 }
 
-export default function HabitSummary(props: HabitSummaryProps) {
+export default function HabitHistory(props: HabitHistoryProps) {
   const [showNoHistory, setShowNoHistory] = useState(false);
 
   return (
     <section className="habits">
       <table>
-        <SummaryTableHeader
+        <HistoryTableHeader
           title="Habits"
           setShowNoHistory={setShowNoHistory}
           showNoHistory={showNoHistory}

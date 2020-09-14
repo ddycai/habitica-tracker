@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { UnfoldIcon, FoldIcon } from "@primer/octicons-react";
 
-import { AppContext } from "./UserSummary";
+import { AppContext } from "./UserHistory";
 
-export default function SummaryTableHeader(props: {
+export default function HistoryTableHeader(props: {
   title: string;
   setShowNoHistory: (val: boolean) => void;
   showNoHistory: boolean;
