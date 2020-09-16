@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/habitica-tracker/static/css/main.d7bae3f8.chunk.css",
-    "main.js": "/habitica-tracker/static/js/main.69e50291.chunk.js",
-    "main.js.map": "/habitica-tracker/static/js/main.69e50291.chunk.js.map",
+    "main.js": "/habitica-tracker/static/js/main.7cb43d3b.chunk.js",
+    "main.js.map": "/habitica-tracker/static/js/main.7cb43d3b.chunk.js.map",
     "runtime-main.js": "/habitica-tracker/static/js/runtime-main.a8369cab.js",
     "runtime-main.js.map": "/habitica-tracker/static/js/runtime-main.a8369cab.js.map",
     "static/js/2.4e63dfe2.chunk.js": "/habitica-tracker/static/js/2.4e63dfe2.chunk.js",
     "static/js/2.4e63dfe2.chunk.js.map": "/habitica-tracker/static/js/2.4e63dfe2.chunk.js.map",
     "index.html": "/habitica-tracker/index.html",
-    "precache-manifest.284e45bf6523fa4e7a36abfb2e6a18f8.js": "/habitica-tracker/precache-manifest.284e45bf6523fa4e7a36abfb2e6a18f8.js",
+    "precache-manifest.cb2f3ca0a1306bf19761ad15dc2ffd50.js": "/habitica-tracker/precache-manifest.cb2f3ca0a1306bf19761ad15dc2ffd50.js",
     "service-worker.js": "/habitica-tracker/service-worker.js",
     "static/css/main.d7bae3f8.chunk.css.map": "/habitica-tracker/static/css/main.d7bae3f8.chunk.css.map",
     "static/js/2.4e63dfe2.chunk.js.LICENSE.txt": "/habitica-tracker/static/js/2.4e63dfe2.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.a8369cab.js",
     "static/js/2.4e63dfe2.chunk.js",
     "static/css/main.d7bae3f8.chunk.css",
-    "static/js/main.69e50291.chunk.js"
+    "static/js/main.7cb43d3b.chunk.js"
   ]
 }
