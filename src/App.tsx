@@ -46,7 +46,7 @@ function App() {
   ) {
     return (
       <div className="App">
-        <h1>Habitica History Tool</h1>
+        <h1>Habitica Tracker</h1>
         {error && <div className="error">Error: {error.message}</div>}
         <p>
           This tool displays a history of your Habits, Dailies and Todos in

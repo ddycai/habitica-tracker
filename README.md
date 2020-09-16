@@ -1,6 +1,7 @@
-# Habitica History Tool
+# Habitica Tracker
 
-Displays a history of your Habits, Dailies and Todos in Habitica.
+Displays a history of your Habits, Dailies and Todos in Habitica like a habit
+tracker.
 
 Try it out locally:
 
