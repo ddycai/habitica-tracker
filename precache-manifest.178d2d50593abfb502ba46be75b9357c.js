@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "72312806f7fdf0941152330054ebcf67",
+    "revision": "81125f8490958bba359f676b75dd8507",
     "url": "/habitica-tracker/index.html"
   },
   {
-    "revision": "0ae41164845b123c7247",
+    "revision": "ed773bfb735f0a2e7439",
     "url": "/habitica-tracker/static/css/main.d7bae3f8.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/habitica-tracker/static/js/2.4e63dfe2.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "0ae41164845b123c7247",
-    "url": "/habitica-tracker/static/js/main.7cb43d3b.chunk.js"
+    "revision": "ed773bfb735f0a2e7439",
+    "url": "/habitica-tracker/static/js/main.015aca69.chunk.js"
   },
   {
     "revision": "ec3f5409b62f7cb9091c",
