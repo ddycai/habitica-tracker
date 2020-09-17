@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import moment, { Moment } from "moment";
 
 import ReactTooltip from "react-tooltip";
 import { ReactComponent as TrivialIcon } from "./svg/difficulty-trivial.svg";
@@ -6,6 +7,9 @@ import { ReactComponent as TrivialIcon } from "./svg/difficulty-trivial.svg";
 import "./TaskIcon.css";
 import { Task } from "./HabiticaTypes";
 import { AppContext } from "./UserHistory";
+
+const DATE_FORMAT = "ddd MMM D";
+const DATE_FORMAT_WITH_YEAR = `MMM D YYYY`;
 
 export function TaskIcon(props: { task: Task }) {
   const context = useContext(AppContext);
@@ -19,16 +23,41 @@ export function TaskIcon(props: { task: Task }) {
     <TrivialIcon fill="white" aria-hidden />
   );
   const taskValue = props.task.value.toFixed(1);
+
+  let nextDue: Moment | undefined;
+  if (props.task.nextDue) {
+    nextDue = moment(props.task.nextDue[0]);
+  }
   return context.showTaskIcons ? (
     <React.Fragment>
       <div data-tip data-for={props.task.id} className={classNames}>
         {stars}
       </div>
       <ReactTooltip id={props.task.id} place="left" effect="solid">
-        Task value: {taskValue}
+        {nextDue ? (
+          <div>
+            <b>Next due:</b> {formatDate(nextDue)}
+          </div>
+        ) : null}
+        <div>
+          <b>Task value:</b> {taskValue}
+        </div>
       </ReactTooltip>
     </React.Fragment>
   ) : null;
+}
+
+function formatDate(date: Moment): string {
+  const now = moment();
+  if (date.diff(now, "days") < 1) {
+    return "tomorrow";
+  } else if (date.diff(now, "days") < 6) {
+    return date.format("dddd");
+  } else if (date.year === moment().year) {
+    return date.format(DATE_FORMAT);
+  } else {
+    return date.format(DATE_FORMAT_WITH_YEAR);
+  }
 }
 
 function getDifficultyLevel(priority: number) {

@@ -5,8 +5,9 @@ export interface Task {
     type: string;
     value: number;
     priority: number;
-    history: Array<History>;
+    history: History[];
     createdAt: string;
+    nextDue: string[],
     // Todo only
     notes?: string;
     dateCompleted?: string;
