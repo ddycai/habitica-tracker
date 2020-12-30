@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import IntervalTree from "node-interval-tree";
-import moment, { Moment } from "moment";
+import dayjs, { Dayjs } from "dayjs";
+import logger from "./logger";
 
-import { AppState } from "./App";
 import { Task, History } from "./HabiticaTypes";
 import DailyHistory from "./DailyHistory";
 import HabitHistory from "./HabitHistory";
@@ -26,11 +26,11 @@ const DEFAULT_NUM_DAYS_TO_SHOW = 7;
  * to create a Cron time buffer to designate all tasks which were completed
  * this amount of time before the Cron time as Cron tasks.
  */
-const CRON_BUFFER_DURATION_SECONDS = 60;
+const CRON_BUFFER_DURATION_SECONDS = 300;
 
 export const AppContext = React.createContext({
   showTaskIcons: true,
-  dates: Array<Moment>(),
+  dates: Array<Dayjs>(),
   cronIntervals: new IntervalTree(),
 });
 
@@ -38,7 +38,6 @@ interface UserHistoryProps {
   userId: string;
   userApiKey: string;
   setError: (errorMessage: Error) => void;
-  setAppState: (state: AppState) => void;
 }
 
 export default function UserHistory(props: UserHistoryProps) {
@@ -90,7 +89,7 @@ export default function UserHistory(props: UserHistoryProps) {
         (result) => {
           setCronTimes(
             result.data.history.exp.map((history: History) => {
-              const cronTime = moment(history.date);
+              const cronTime = dayjs(history.date);
               return [
                 cronTime.unix() - CRON_BUFFER_DURATION_SECONDS,
                 cronTime.unix() + CRON_BUFFER_DURATION_SECONDS,
@@ -145,11 +144,11 @@ export default function UserHistory(props: UserHistoryProps) {
       </div>
     );
   } else {
-    props.setAppState(AppState.DATA_FETCH_SUCCESS);
     const cronIntervals = new IntervalTree();
-    cronTimes.forEach((range) =>
-      cronIntervals.insert(range[0], range[1], true)
-    );
+    cronTimes.forEach((range) => {
+      logger.debug(`cron: ${dayjs.unix(range[0])} - ${dayjs.unix(range[1])}`);
+      cronIntervals.insert(range[0], range[1], true);
+    });
 
     const appContext = {
       showTaskIcons: showTaskIcons,
@@ -212,7 +211,7 @@ function AppControls(props: {
   );
 }
 
-function getMonthString(dates: Moment[]): string {
+function getMonthString(dates: Dayjs[]): string {
   const monthStart = dates[0];
   const monthEnd = dates[dates.length - 1];
   if (monthStart.month() === monthEnd.month()) {
@@ -224,10 +223,10 @@ function getMonthString(dates: Moment[]): string {
 }
 
 /** Get all the dates to show.  */
-function getDateArray(numDays: number): Moment[] {
+function getDateArray(numDays: number): Dayjs[] {
   return Array(numDays)
     .fill(0)
     .map((_, i) => i + 1)
     .reverse()
-    .map((i) => moment().subtract(i, "days").startOf("day"));
+    .map((i) => dayjs().subtract(i, "day").startOf("day"));
 }

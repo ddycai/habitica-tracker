@@ -1,5 +1,4 @@
 import React, { useState, ChangeEvent } from "react";
-import log from "loglevel";
 
 import "./App.css";
 import UserHistory from "./UserHistory";
@@ -8,13 +7,11 @@ export const DATE_KEY_FORMAT = "YYYYMMDD";
 
 export enum AppState {
   PROMPT_FOR_USER_CREDS,
-  FETCHING_DATA,
-  DATA_FETCH_SUCCESS,
+  USER_INPUT_ACCEPTED,
   ERROR,
 }
 
 function App() {
-  log.setLevel('debug');
   const [userId, setUserId] = useState<string>("");
   const [userApiKey, setUserApiKey] = useState<string>("");
   const [error, setError] = useState<Error>();
@@ -37,7 +34,7 @@ function App() {
 
   const handleSubmit = (event: React.MouseEvent) => {
     event.preventDefault();
-    setAppState(AppState.FETCHING_DATA);
+    setAppState(AppState.USER_INPUT_ACCEPTED);
   };
 
   if (
@@ -106,7 +103,6 @@ function App() {
         userId={userId}
         userApiKey={userApiKey}
         setError={setAppError}
-        setAppState={setAppState}
       />
     );
   }

@@ -10,34 +10,36 @@ export default function HistoryTableHeader(props: {
 }) {
   const context = useContext(AppContext);
   return (
-    <tr>
-      <th>
-        <div className="section-header">
-          <div className="section-header-title">
-            <h2>{props.title}</h2>
-            <div
-              role="button"
-              className="show-no-history clickable"
-              title="Show/Hide tasks with no data"
-              onClick={() => props.setShowNoHistory(!props.showNoHistory)}
-            >
-              {props.showNoHistory ? (
-                <FoldIcon aria-hidden="true" />
-              ) : (
-                <UnfoldIcon aria-hidden="true" />
-              )}
+    <thead>
+      <tr>
+        <th>
+          <div className="section-header">
+            <div className="section-header-title">
+              <h2>{props.title}</h2>
+              <div
+                role="button"
+                className="show-no-history clickable"
+                title="Show/Hide tasks with no data"
+                onClick={() => props.setShowNoHistory(!props.showNoHistory)}
+              >
+                {props.showNoHistory ? (
+                  <FoldIcon aria-hidden="true" />
+                ) : (
+                  <UnfoldIcon aria-hidden="true" />
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </th>
-      {context.dates.map((day) => (
-        <th>
-          <div className="date date-heading">
-            <span>{day.format("ddd")}</span>
-            <span>{day.format("DD")}</span>
-          </div>
         </th>
-      ))}
-    </tr>
+        {context.dates.map((day) => (
+          <th key={day.toString()}>
+            <div className="date date-heading">
+              <span>{day.format("ddd")}</span>
+              <span>{day.format("DD")}</span>
+            </div>
+          </th>
+        ))}
+      </tr>
+    </thead>
   );
 }

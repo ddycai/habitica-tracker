@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import moment, { Moment } from "moment";
+import dayjs, { Dayjs } from "dayjs";
 
 import ReactTooltip from "react-tooltip";
 import { ReactComponent as TrivialIcon } from "./svg/difficulty-trivial.svg";
@@ -19,14 +19,15 @@ export function TaskIcon(props: { task: Task }) {
     getColorClass(props.task),
   ].join(" ");
 
-  const stars = Array(getDifficultyLevel(props.task.priority)).fill(
-    <TrivialIcon fill="white" aria-hidden />
-  );
+  const numStars = getDifficultyLevel(props.task.priority);
+  const stars = Array.from({ length: numStars }, (x, i) => (
+    <TrivialIcon key={i} fill="white" aria-hidden />
+  ));
   const taskValue = props.task.value.toFixed(1);
 
-  let nextDue: Moment | undefined;
+  let nextDue: Dayjs | undefined;
   if (props.task.nextDue) {
-    nextDue = moment(props.task.nextDue[0]);
+    nextDue = dayjs(props.task.nextDue[0]);
   }
   return context.showTaskIcons ? (
     <React.Fragment>
@@ -47,13 +48,13 @@ export function TaskIcon(props: { task: Task }) {
   ) : null;
 }
 
-function formatDate(date: Moment): string {
-  const now = moment();
-  if (date.diff(now, "days") < 1) {
+function formatDate(date: Dayjs): string {
+  const now = dayjs();
+  if (date.diff(now, "day") < 1) {
     return "tomorrow";
-  } else if (date.diff(now, "days") < 6) {
+  } else if (date.diff(now, "day") < 6) {
     return date.format("dddd");
-  } else if (date.year === moment().year) {
+  } else if (date.year === dayjs().year) {
     return date.format(DATE_FORMAT);
   } else {
     return date.format(DATE_FORMAT_WITH_YEAR);

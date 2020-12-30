@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
-import moment from "moment";
-import log from "loglevel";
+import dayjs from "dayjs";
 
 import { Task } from "./HabiticaTypes";
 import { DATE_KEY_FORMAT } from "./App";
 import { AppContext } from "./UserHistory";
 import { TaskIcon } from "./TaskIcon";
 import HistoryTableHeader from "./HistoryTableHeader";
+import logger from "./logger";
 
 var md = require("habitica-markdown");
 
@@ -25,9 +25,11 @@ export default function HabitHistory(props: HabitHistoryProps) {
           setShowNoHistory={setShowNoHistory}
           showNoHistory={showNoHistory}
         />
-        {props.data.map((habit) => (
-          <Habit showNoHistory={showNoHistory} habit={habit} />
-        ))}
+        <tbody>
+          {props.data.map((habit) => (
+            <Habit key={habit.id} showNoHistory={showNoHistory} habit={habit} />
+          ))}
+        </tbody>
       </table>
     </section>
   );
@@ -38,10 +40,10 @@ export function Habit(props: { habit: Task; showNoHistory: boolean }) {
   const historyMap = new Map<string, [number, number]>();
   const { text, history } = props.habit;
 
-  log.debug(text);
+  logger.debug(text);
   for (let record of history) {
-    let taskDate = moment(record.date).format(DATE_KEY_FORMAT);
-    log.debug(JSON.stringify(record));
+    let taskDate = dayjs(record.date).format(DATE_KEY_FORMAT);
+    logger.debug(JSON.stringify(record));
     if (record.scoredUp !== undefined && record.scoredDown !== undefined) {
       historyMap.set(taskDate, [record.scoredUp, record.scoredDown]);
     }
@@ -49,10 +51,13 @@ export function Habit(props: { habit: Task; showNoHistory: boolean }) {
 
   const dailyScores = context.dates
     .map((day) => day.format(DATE_KEY_FORMAT))
-    .map((day) => historyMap.get(day));
+    .map((day) => ({
+      day,
+      score: historyMap.get(day)
+    }));
 
   if (
-    dailyScores.filter((score) => score !== undefined).length === 0 &&
+    dailyScores.filter(({score}) => score !== undefined).length === 0 &&
     !props.showNoHistory
   ) {
     // Don't render the component if showNoHistory is off.
@@ -68,11 +73,11 @@ export function Habit(props: { habit: Task; showNoHistory: boolean }) {
           dangerouslySetInnerHTML={{ __html: md.render(text) }}
         />
       </td>
-      {dailyScores.map((score) => {
+      {dailyScores.map(({day, score}) => {
         if (score) {
-          return <HabitScore up={score[0]} down={score[1]} />;
+          return <HabitScore key={day} up={score[0]} down={score[1]} />;
         } else {
-          return <td className="habit-cell">&nbsp;</td>;
+          return <td key={day} className="habit-cell">&nbsp;</td>;
         }
       })}
     </tr>

@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
-import moment from "moment";
-import log from "loglevel";
+import dayjs from "dayjs";
 
 import { DATE_KEY_FORMAT } from "./App";
 import { Task } from "./HabiticaTypes";
 import { AppContext } from "./UserHistory";
 import { TaskIcon } from "./TaskIcon";
 import HistoryTableHeader from "./HistoryTableHeader";
+import logger from "./logger";
 
 var md = require("habitica-markdown");
 
@@ -25,9 +25,11 @@ export default function DailyHistory(props: DailyHistoryProps) {
           setShowNoHistory={setShowNoHistory}
           showNoHistory={showNoHistory}
         />
-        {props.data.map((daily) => (
-          <Daily showNoHistory={showNoHistory} daily={daily} />
-        ))}
+        <tbody>
+          {props.data.map((daily) => (
+            <Daily key={daily.id} showNoHistory={showNoHistory} daily={daily} />
+          ))}
+        </tbody>
       </table>
       <div
         className="link show-no-history"
@@ -43,16 +45,11 @@ export function Daily(props: { daily: Task; showNoHistory: boolean }) {
 
   const { text, history } = props.daily;
 
-  log.debug(text);
-  for (let i = 0; i < history.length; i++) {
-    let delta;
-    if (i === 0) {
-      delta = history[i].value;
-    } else {
-      delta = history[i].value - history[i - 1].value;
-    }
-    let taskUpdateTime = moment(history[i].date);
-    log.debug(
+  logger.debug(text);
+  for (let i = 1; i < history.length; i++) {
+    const delta = history[i].value - history[i - 1].value;
+    let taskUpdateTime = dayjs(history[i].date);
+    logger.debug(
       taskUpdateTime.format("YYYY-MM-DD HH:mm:ss") + ": " + history[i].value
     );
     // Only consider times when the task value changes (or the first value).
@@ -65,27 +62,35 @@ export function Daily(props: { daily: Task; showNoHistory: boolean }) {
           taskUpdateTime.unix()
         ).length > 0
       ) {
-        // Daily could have been completed twice in the cron time so if this is
-        // the second time, don't subtract a day.
-        if (!historyMap.has(taskUpdateTime.format(DATE_KEY_FORMAT))) {
-          taskUpdateTime = taskUpdateTime.subtract(1, "day");
+        // Daily could have been completed twice in the cron time so if a
+        // completion already exists for yesterday then this completion must be
+        // for today.
+        const oneDayAgo = taskUpdateTime.subtract(1, "day");
+        if (!historyMap.has(oneDayAgo.format(DATE_KEY_FORMAT))) {
+          taskUpdateTime = oneDayAgo;
         } else {
-          log.debug(
-            `Multiple daily completions on for ${text} on ${taskUpdateTime}`
-          );
+          if (historyMap.has(taskUpdateTime.format(DATE_KEY_FORMAT))) {
+            logger.warn(
+              `Too many completions for ${text} on ${taskUpdateTime}`
+            );
+          }
         }
       }
       const taskDate = taskUpdateTime.format(DATE_KEY_FORMAT);
       historyMap.set(taskDate, delta);
     }
   }
+  console.groupEnd();
 
   const dailyDeltas = context.dates
     .map((day) => day.format(DATE_KEY_FORMAT))
-    .map((day) => historyMap.get(day));
+    .map((day) => ({
+      day,
+      delta: historyMap.get(day)
+    }));
 
   if (
-    dailyDeltas.filter((delta) => delta !== undefined).length === 0 &&
+    dailyDeltas.filter(({delta}) => delta !== undefined).length === 0 &&
     !props.showNoHistory
   ) {
     // Don't render the component if showNoHistory is off.
@@ -101,8 +106,8 @@ export function Daily(props: { daily: Task; showNoHistory: boolean }) {
           dangerouslySetInnerHTML={{ __html: md.render(text) }}
         />
       </td>
-      {dailyDeltas.map((delta) => (
-        <DailyStatus delta={delta} />
+      {dailyDeltas.map(({day, delta}) => (
+        <DailyStatus key={day} delta={delta!} />
       ))}
     </tr>
   );
