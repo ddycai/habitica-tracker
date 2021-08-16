@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/habitica-tracker/static/css/main.b6e5a58d.chunk.css",
-    "main.js": "/habitica-tracker/static/js/main.feb83c9a.chunk.js",
-    "main.js.map": "/habitica-tracker/static/js/main.feb83c9a.chunk.js.map",
+    "main.js": "/habitica-tracker/static/js/main.b06fca55.chunk.js",
+    "main.js.map": "/habitica-tracker/static/js/main.b06fca55.chunk.js.map",
     "runtime-main.js": "/habitica-tracker/static/js/runtime-main.ae0b5293.js",
     "runtime-main.js.map": "/habitica-tracker/static/js/runtime-main.ae0b5293.js.map",
     "static/js/2.eb8fe21b.chunk.js": "/habitica-tracker/static/js/2.eb8fe21b.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.ae0b5293.js",
     "static/js/2.eb8fe21b.chunk.js",
     "static/css/main.b6e5a58d.chunk.css",
-    "static/js/main.feb83c9a.chunk.js"
+    "static/js/main.b06fca55.chunk.js"
   ]
 }
