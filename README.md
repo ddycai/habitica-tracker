@@ -3,7 +3,9 @@
 Displays a history of your Habits, Dailies and Todos in Habitica like a habit
 tracker.
 
-Try it out locally:
+Try it out here: http://ddycai.github.io/habitica-tracker
+
+Or try it out locally:
 
 ```
 npm start
