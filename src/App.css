@@ -222,3 +222,11 @@ body .symbol {
     max-width: 100px;
   }
 }
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .App {
+    background-color: #000;
+    color: #fff;
+  }
+}
