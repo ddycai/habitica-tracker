@@ -182,3 +182,43 @@ th {
 .symbol {
   color: white;
 }
+
+body .daily-cell,
+body .habit-score-container span,
+body .symbol {
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  body,
+  html {
+    overflow-x: hidden;
+  }
+
+  div,
+  span,
+  body,
+  body .task-name {
+    font-size: 13px;
+  }
+
+  body .task-icon-container {
+    height: 17px;
+    width: 20px;
+  }
+
+  body .daily-cell,
+  body .habit-score-container span,
+  body .symbol {
+    font-size: 12px;
+  }
+
+  body .habit-score-container,
+  body .habit-score-container span {
+    height: 30px;
+  }
+
+  .task-name p {
+    max-width: 100px;
+  }
+}
