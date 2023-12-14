@@ -1,28 +1,29 @@
 .app-wrapper {
-  width: 100%;
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .center-wrapper {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
   text-align: center;
 }
 
 .App {
-  background-color: #FFFFFF;
+  background-color: #fff;
   padding: 40px;
 }
 
 .error {
-  color: #DB2955;
-  font-weight: bold;
+  color: #db2955;
+  font-weight: 700;
 }
 
 /* User API Form */
-.user-api-form .user-id, .user-api-form .api-key {
+.user-api-form .user-id,
+.user-api-form .api-key {
   width: 300px;
 }
 
@@ -40,18 +41,17 @@
 }
 
 .app-controls {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
-
 .app-controls .date-header {
+  color: #757575;
   display: flex;
   flex-direction: column;
-  margin-left: 12px;
   font-size: 1.3em;
-  color: #757575;
+  margin-left: 12px;
 }
 
 /* Summary Section */
@@ -59,18 +59,19 @@ section {
   margin-top: 32px;
 }
 
-.section-header, .section-header-title {
-  display: flex;
+.section-header,
+.section-header-title {
   align-items: center;
+  display: flex;
 }
 
-.show-no-history  {
+.show-no-history {
   margin-left: 8px;
 }
 
 section h2 {
-  margin-top: 8px;
   margin-bottom: 8px;
+  margin-top: 8px;
 }
 
 td {
@@ -82,7 +83,9 @@ th {
   text-align: left;
 }
 
-.dailys table, .habits table, .todos table {
+.dailys table,
+.habits table,
+.todos table {
   width: 100%;
 }
 
@@ -91,67 +94,139 @@ th {
 }
 
 .date-heading {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  font-weight: normal;
   font-size: medium;
+  font-weight: 400;
+  justify-content: flex-end;
 }
 
 .link {
-  color: #3366BB;
+  color: #36b;
 }
 
-.link:hover, .clickable:hover {
+.link:hover,
+.clickable:hover,
+.link:focus,
+.clickable:focus {
   cursor: pointer;
 }
 
 /* Task */
 .task-name-row {
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .task-name {
-  padding: 8px;
   max-width: 400px;
+  overflow: hidden;
+  padding: 8px;
 }
 
 .task-name p {
   margin: 0;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.habit-cell, .daily-cell {
+.habit-cell,
+.daily-cell {
   width: 40px;
 }
 
 .habit-score-container {
+  color: white;
   display: flex;
   flex-direction: column;
-  color: white;
-  justify-content: space-evenly;
   height: 40px;
+  justify-content: space-evenly;
+}
+
+.habit-score-container span {
+  align-items: center;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+}
+
+.habit-score-container .success + .fail {
+  display: none;
 }
 
 /* Success/Fail Symbols */
 .success {
-  background-color: #24CC8F;
+  background-color: #24cc8f;
 }
 
 .fail {
-  background-color: #DB2955;
+  background-color: #db2955;
 }
 
-.pass, .habit-cell {
-  background-color: #FFDFAE;
+.pass,
+.habit-cell {
+  background-color: #ffdfae;
 }
 
 .pass .symbol {
-  color: #FFBE5D;
+  color: #ffbe5d;
 }
 
 .symbol {
   color: white;
+}
+
+body .daily-cell,
+body .habit-score-container span,
+body .symbol {
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  body,
+  html {
+    overflow-x: hidden;
+  }
+
+  div,
+  span,
+  body,
+  body .task-name {
+    font-size: 13px;
+  }
+
+  body .task-icon-container {
+    height: 17px;
+    width: 20px;
+  }
+
+  body .daily-cell,
+  body .habit-score-container span,
+  body .symbol {
+    font-size: 12px;
+  }
+
+  body .habit-score-container,
+  body .habit-score-container span {
+    height: 30px;
+  }
+
+  .task-name p {
+    max-width: 100px;
+  }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .App {
+    background-color: #000;
+    color: #fff;
+  }
 }
